@@ -18,4 +18,6 @@ public interface AppSupplyService extends BaseService<Supply>{
 	
 	public int addSupply(Supply supply,String[] tagIdArr);
 	
+	public int updateSupply(Supply supply,String[] tagIdArr);
+	
 }

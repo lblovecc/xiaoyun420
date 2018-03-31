@@ -17,7 +17,7 @@ public class WxPayConfig {
     public static final String key = "";  
     
     //支付成功后的服务器回调url  
-    public static final String notify_url = "https://??/??/xiaochengxu/weixin_notify";  
+    public static final String notify_url = "https://域名/xiaochengxu/weixin_notify";  
     
     //签名方式，固定值  
     public static final String SIGNTYPE = "MD5";  

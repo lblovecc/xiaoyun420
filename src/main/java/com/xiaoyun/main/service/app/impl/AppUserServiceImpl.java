@@ -1,6 +1,7 @@
 package com.xiaoyun.main.service.app.impl;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.github.pagehelper.PageHelper;
+import com.xiaoyun.main.common.EasyUIPaginator;
 import com.xiaoyun.main.mapper.AddressMapper;
 import com.xiaoyun.main.mapper.UserMapper;
 import com.xiaoyun.main.mapper.ViewChanceMapper;
 import com.xiaoyun.main.model.Address;
+import com.xiaoyun.main.model.vo.CollectVO;
+import com.xiaoyun.main.model.vo.SupplyAndBuyVO;
 import com.xiaoyun.main.model.User;
 import com.xiaoyun.main.model.ViewChance;
 import com.xiaoyun.main.model.vo.UserVO;
@@ -89,6 +94,22 @@ public class AppUserServiceImpl extends BaseServiceImpl<User> implements AppUser
 	@Override
 	public UserVO getUserInfo(Map<String, Object> qryMap) {
 		return userMapper.getUserInfo(qryMap);
+	}
+
+	@Override
+	public List<SupplyAndBuyVO> getSupplyAndBuyList(Map<String, Object> qryMap,EasyUIPaginator paginator) {
+		
+		PageHelper.startPage(paginator.getPage(), paginator.getRows());
+		
+		return userMapper.getSupplyAndBuyList(qryMap);
+	}
+
+	@Override
+	public List<CollectVO> getCollectList(Map<String, Object> qryMap, EasyUIPaginator paginator) {
+		
+		PageHelper.startPage(paginator.getPage(), paginator.getRows());
+		
+		return userMapper.getCollectList(qryMap);
 	}
 	
 }

@@ -30,8 +30,18 @@ public class Supply {
     private Date updatetime;
 
     private Long managerid;
+    
+    private String type;			//类型   默认为supply
 
-    public Long getId() {
+    public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Long getId() {
         return id;
     }
 

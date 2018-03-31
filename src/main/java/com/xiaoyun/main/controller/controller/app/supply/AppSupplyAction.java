@@ -48,7 +48,7 @@ public class AppSupplyAction extends AbstractBaseController{
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping({"/get_supply_list.do"})
+	@RequestMapping({"/get_supply_list"})
 	public JSONObject getGoodsInfo(HttpServletRequest request, HttpServletResponse response,EasyUIPaginator paginator){
 		
 		String keyword = request.getParameter("keyword");			//搜索框中的关键词
@@ -66,7 +66,7 @@ public class AppSupplyAction extends AbstractBaseController{
 	 * @param supplyId
 	 * @return
 	 */
-	@RequestMapping({"/get_supply_detail.do"})
+	@RequestMapping({"/get_supply_detail"})
 	public JSONObject getSupplyDetailInfo(Long supplyId,Long userId){
 		
 		Map<String,Object> qryMap = new HashMap<>();
@@ -90,7 +90,7 @@ public class AppSupplyAction extends AbstractBaseController{
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping({"/collect_supply.do"})
+	@RequestMapping({"/collect_supply"})
 	public JSONObject collectSupply(Long supplyId,Long userId){
 		
 		Collect collection = new Collect();
@@ -123,7 +123,7 @@ public class AppSupplyAction extends AbstractBaseController{
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping({"/forward_supply.do"})
+	@RequestMapping({"/forward_supply"})
 	public JSONObject forwardSupply(Long supplyId,Long userId){
 		
 		return getAppJsonResult();
@@ -134,7 +134,7 @@ public class AppSupplyAction extends AbstractBaseController{
 	 * @param supply
 	 * @return
 	 */
-	@RequestMapping({"/add_supply.do"})
+	@RequestMapping({"/add_supply"})
 	public JSONObject addSupply(Supply supply){
 		
 		if(null == supply.getCategoryid1()){
@@ -183,6 +183,63 @@ public class AppSupplyAction extends AbstractBaseController{
 			return getAppErrorJsonResult("1", "帖子发布失败");
 		}else{
 			return getAppJsonResult("帖子发布成功!");
+		}
+	}
+	
+	/**
+	 * 更新供应的帖子
+	 * @param supply
+	 * @return
+	 */
+	@RequestMapping({"/update_supply"})
+	public JSONObject updateSupply(Supply supply){
+		
+		if(null == supply.getCategoryid1()){
+			return getAppErrorJsonResult("1", "一级类目未选择");
+		}
+		
+		if(null == supply.getCategoryid2()){
+			return getAppErrorJsonResult("1", "二级类目未选择");
+		}
+		
+		String title = supply.getTitle();
+		if(null == title || title.equals("")){
+			return getAppErrorJsonResult("1", "帖子标题未填写");
+		}
+		
+		String detile = supply.getDetile();
+		if(null == detile || detile.equals("")){
+			return getAppErrorJsonResult("1", "帖子详细说明未填写");
+		}
+		
+		Integer price= supply.getPrice();
+		if(null == price){
+			return getAppErrorJsonResult("1", "价格未填写");
+		}
+		
+		String pictureUrls = supply.getPictureurls();
+		if(null == pictureUrls || pictureUrls.equals("")){
+			return getAppErrorJsonResult("1", "未添加图片");
+		}
+		
+		Long userId = supply.getUserid();
+		if(null == userId){
+			return getAppErrorJsonResult("1", "帖子发布人未知");
+		}
+		
+		String tagIds = supply.getTagids();
+		if(null == tagIds || tagIds.equals("")){
+			return getAppErrorJsonResult("1", "未选择标签");
+		}
+		
+		String[] tagIdArr = tagIds.split(",");
+		
+		int m = supplyService.updateSupply(supply, tagIdArr);
+		
+		if(m==0){
+			return getAppErrorJsonResult("1", "帖子更新失败");
+		}else{
+			return getAppJsonResult("帖子更新成功!");
 		}
 	}
 

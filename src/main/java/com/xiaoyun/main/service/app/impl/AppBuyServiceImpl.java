@@ -180,4 +180,38 @@ public class AppBuyServiceImpl extends BaseServiceImpl<Buy> implements AppBuySer
 		
 	}
 	
+	@Override
+	public int updateBuy(Buy buy,String[] tagIdArr){
+		
+		Date now = new Date();
+		
+		buy.setClicks(0);
+		buy.setCreatetime(now);
+		buy.setStatus("checking");
+		buy.setUpdatetime(now);
+		
+		try{
+			buyMapper.updateByPrimaryKeySelective(buy);
+			
+			List<BuyTagTemp> buyTagTempList = new ArrayList<>();
+			
+			for(String tagIdStr : tagIdArr){
+				BuyTagTemp buyTagTemp = new BuyTagTemp();
+				buyTagTemp.setCreatetime(now);
+				buyTagTemp.setBuyid(buy.getId());
+				buyTagTemp.setTagid(Long.valueOf(tagIdStr));
+				buyTagTempList.add(buyTagTemp);
+			}
+			
+			buyTagTempMapper.addBuyTagTemp(buyTagTempList);
+			
+			return 2;
+		}catch(Exception e){
+			//throw new RuntimeException(); 			事务回滚方法一
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();			//事务回滚方法二
+			return 0;
+		}
+		
+	}
+	
 }

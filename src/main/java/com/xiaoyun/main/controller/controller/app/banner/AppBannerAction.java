@@ -39,7 +39,7 @@ public class AppBannerAction extends AbstractBaseController{
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping({"/get_banner_list.do"})
+	@RequestMapping({"/get_banner_list"})
 	public JSONObject getBannerInfo(HttpServletRequest request, HttpServletResponse response){
 		
 		Map<String,Object> qryMap = new HashMap<>();

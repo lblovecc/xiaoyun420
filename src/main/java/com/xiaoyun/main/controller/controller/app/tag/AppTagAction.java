@@ -33,7 +33,7 @@ public class AppTagAction extends AbstractBaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/get_tag_list.do")
+	@RequestMapping(value="/get_tag_list")
 	public JSONObject getTagList(HttpServletRequest request){
 		
 		List<Tag> tagList = tagService.getTagList(new HashMap<String,Object>());

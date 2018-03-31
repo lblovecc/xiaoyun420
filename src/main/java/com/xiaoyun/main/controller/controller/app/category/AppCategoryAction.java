@@ -39,7 +39,7 @@ public class AppCategoryAction extends AbstractBaseController{
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping({"/get_category_list.do"})
+	@RequestMapping({"/get_category_list"})
 	public JSONObject getCategoryInfo(HttpServletRequest request, HttpServletResponse response){
 		
 		String parentId = request.getParameter("parentId");

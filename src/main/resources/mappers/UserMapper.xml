@@ -290,4 +290,30 @@
   		left join address b on a.address=b.id
   		where a.id=#{userId}
   </select>
+  
+  <select id="getSupplyAndBuyList" parameterType="java.util.Map" resultType="com.xiaoyun.main.model.vo.SupplyAndBuyVO">
+  		SELECT id, categoryId1, categoryId2, title, detile, price, pictureUrls, userId, tagIds, 
+    			`status`, clicks, createTime, updateTime, managerId,`type`,unit,`count`,endTime 
+    		FROM 
+    		(SELECT id, categoryId1, categoryId2, title, detile, price, pictureUrls, userId, tagIds, 
+    			`status`, clicks, createTime, updateTime, managerId,`type`,unit,`count`,endTime
+		FROM supply a where a.userId=#{userId} 
+			UNION ALL
+			SELECT id, categoryId1, categoryId2, title, detile, price, pictureUrls, userId, tagIds, 
+    			`status`, clicks, createTime, updateTime, managerId,`type`,unit,`count`,endTime 
+    	FROM buy b where b.userId=#{userId}) t 
+    		ORDER BY t.updateTime DESC
+  </select>
+  
+  <select id="getCollectList" parameterType="java.util.Map" resultType="com.xiaoyun.main.model.vo.CollectVO">
+  		SELECT id, categoryId1, categoryId2, title, detile, price, pictureUrls, userId, tagIds, 
+    			`status`, clicks, createTime, updateTime, managerId,`type`,unit,`count`,endTime,collectTime 
+    		FROM 
+    		(SELECT t1.createTime collectTime,a.* FROM collect t1 
+    			LEFT JOIN supply a ON t1.supplyId=a.id AND t1.collectType='supply' where t1.userId=#{userId}
+			UNION ALL
+				SELECT t2.createTime collectTime,b.* FROM collect t2 
+				LEFT JOIN buy b ON t2.buyId=b.id AND t2.collectType='buy' where t2.userId=#{userId}) t 
+			ORDER BY t.collectTime DESC 
+  </select>
 </mapper>

@@ -16,10 +16,11 @@
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
     <result column="managerId" jdbcType="BIGINT" property="managerid" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
   </resultMap>
   <sql id="Base_Column_List">
     id, categoryId1, categoryId2, title, detile, price, pictureUrls, userId, tagIds, 
-    status, clicks, createTime, updateTime, managerId
+    status, clicks, createTime, updateTime, managerId,type
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -36,12 +37,12 @@
       title, detile, price, 
       pictureUrls, userId, tagIds, 
       status, clicks, createTime, 
-      updateTime, managerId)
+      updateTime, managerId,type)
     values (#{id,jdbcType=BIGINT}, #{categoryid1,jdbcType=BIGINT}, #{categoryid2,jdbcType=BIGINT}, 
       #{title,jdbcType=VARCHAR}, #{detile,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, 
       #{pictureurls,jdbcType=VARCHAR}, #{userid,jdbcType=BIGINT}, #{tagids,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{clicks,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{updatetime,jdbcType=TIMESTAMP}, #{managerid,jdbcType=BIGINT})
+      #{updatetime,jdbcType=TIMESTAMP}, #{managerid,jdbcType=BIGINT}, #{type,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.xiaoyun.main.model.Supply">
     insert into supply
@@ -88,6 +89,9 @@
       <if test="managerid != null">
         managerId,
       </if>
+      <if test="type != null">
+        type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -131,6 +135,9 @@
       </if>
       <if test="managerid != null">
         #{managerid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -176,6 +183,9 @@
       <if test="managerid != null">
         managerId = #{managerid,jdbcType=BIGINT},
       </if>
+      <if test="type != null">
+        type = #{type,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -193,13 +203,14 @@
       clicks = #{clicks,jdbcType=INTEGER},
       createTime = #{createtime,jdbcType=TIMESTAMP},
       updateTime = #{updatetime,jdbcType=TIMESTAMP},
-      managerId = #{managerid,jdbcType=BIGINT}
+      managerId = #{managerid,jdbcType=BIGINT},
+      type = #{type,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
   
   <select id="getSupplyList" parameterType="java.util.Map" resultType="com.xiaoyun.main.model.vo.SupplyVO">
      select a.id supplyId, a.categoryId1, a.categoryId2, a.title, a.detile, 
-     		a.price, a.pictureUrls, a.userId, a.tagIds,a.status, a.clicks, 
+     		a.price, a.pictureUrls, a.userId, a.tagIds,a.status, a.clicks,a.type 
      		DATE_FORMAT(a.createTime,'%Y-%m-%d %H:%i') createTime, a.updateTime,
      		a.managerId,b.name userName,b.phone,a.tagNames,b.detail,b.headImgUrl,
      		c.categoryName categoryName,d.categoryName categoryName2,

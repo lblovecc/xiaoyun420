@@ -53,7 +53,7 @@ public class AppBuyAction extends AbstractBaseController{
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping({"/get_buy_list.do"})
+	@RequestMapping({"/get_buy_list"})
 	public JSONObject getBuyList(HttpServletRequest request, HttpServletResponse response,EasyUIPaginator paginator){
 		
 		List<BuyVO> buyVOList = buyService.getBuyList(new HashMap<String,Object>(), paginator);
@@ -63,7 +63,7 @@ public class AppBuyAction extends AbstractBaseController{
 	}
 	
 	/**
-	 * 获取求购帖子列表
+	 * 获取求购帖子信息
 	 * @param request
 	 * @param response
 	 * @param paginator
@@ -85,7 +85,7 @@ public class AppBuyAction extends AbstractBaseController{
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping({"/click_free_view.do"})
+	@RequestMapping({"/click_free_view"})
 	public JSONObject clickFreeView(Long userId,Long buyId){
 		
 		ViewChance viewChance = new ViewChance();
@@ -114,9 +114,12 @@ public class AppBuyAction extends AbstractBaseController{
 	}
 	
 	/**
-	 * 
+	 * 发布求购帖子
+	 * @param buy
+	 * @param address
+	 * @return
 	 */
-	@RequestMapping({"/add_buy.do"})
+	@RequestMapping({"/add_buy"})
 	public JSONObject addBuy(Buy buy,Address address){
 		
 		if(null == buy.getCategoryid1()){
@@ -172,6 +175,70 @@ public class AppBuyAction extends AbstractBaseController{
 			return getAppJsonResult("帖子发布成功!");
 		}
 		
+	}
+	
+	
+	/**
+	 * 更新求购帖子(也会置顶)
+	 * @param buy
+	 * @param address
+	 * @return
+	 */
+	@RequestMapping({"/update_buy"})
+	public JSONObject updateBuy(Buy buy){
+		
+		if(null == buy.getCategoryid1()){
+			return getAppErrorJsonResult("1", "一级类目未选择");
+		}
+		
+		if(null == buy.getCategoryid2()){
+			return getAppErrorJsonResult("1", "二级类目未选择");
+		}
+		
+		String title = buy.getTitle();
+		if(null == title || title.equals("")){
+			return getAppErrorJsonResult("1", "帖子标题未填写");
+		}
+		
+		String detile = buy.getDetile();
+		if(null == detile || detile.equals("")){
+			return getAppErrorJsonResult("1", "帖子详细说明未填写");
+		}
+		
+		Integer count = buy.getCount();
+		if(null == count){
+			return getAppErrorJsonResult("1", "数量未填写");
+		}
+		
+		String unit = buy.getUnit();
+		if(null == unit || unit.equals("")){
+			return getAppErrorJsonResult("1", "规格未填写");
+		}
+		
+		Date endTime = buy.getEndtime();
+		if(null == endTime){
+			return getAppErrorJsonResult("1", "截止时间未填写");
+		}
+		
+		Long userId = buy.getUserid();
+		if(null == userId){
+			return getAppErrorJsonResult("1", "帖子发布人未知");
+		}
+		
+		String tagIds = buy.getTagids();
+		if(null == tagIds || tagIds.equals("")){
+			return getAppErrorJsonResult("1", "未选择标签");
+		}
+		
+		String[] tagIdArr = tagIds.split(",");
+		
+		int m = buyService.updateBuy(buy, tagIdArr);
+		
+		if(m==0){
+			return getAppErrorJsonResult("1", "帖子更新失败");
+		}else{
+			return getAppJsonResult("帖子更新成功!");
+		}
 	}
 
 }

@@ -9,17 +9,19 @@ import java.util.Date;
  */
 public class SupplyVO {
 
-	private Long supplyId;		//渚涘簲鐨勫笘瀛恑d
+	private Long supplyId;		//id
 	
-	private Long categoryId1;	//涓�绾х被鐩甶d
+	private Long categoryId1;	//一级类目id
 	
-	private Long categoryId2;	//浜岀骇绫荤洰id
+	private Long categoryId2;	//2级类目id
 	
-	private String categoryName1;//涓�绾х被鐩悕绉�
+	private String categoryName1;//一级类目名称
 	
-	private String categoryName2;//浜岀骇绫荤洰鍚嶇О
+	private String categoryName2;//2级类目名称
 	
-	private Integer browseCount;  //娴忚娆℃暟
+	private Integer browseCount;  //浏览次数
+	
+	private String type;		//类型   默认为supply
 	
 	public Integer getBrowseCount() {
 		return browseCount;
@@ -49,7 +51,7 @@ public class SupplyVO {
 	
 	private String detile;
 	
-	private Integer price;		//浠锋牸
+	private Integer price;		//价格
 	
 	private String pictureUrls;	//甯栧瓙鍥剧墖闆嗗悎,涓棿鐢ㄩ�楀彿闅斿紑
 	

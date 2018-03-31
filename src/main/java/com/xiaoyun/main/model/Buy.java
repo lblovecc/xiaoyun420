@@ -32,6 +32,16 @@ public class Buy {
     private Date updatetime;
 
     private Long managerid;
+    
+    private String type;			//类型   默认为buy
+
+    public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
     public Long getId() {
         return id;

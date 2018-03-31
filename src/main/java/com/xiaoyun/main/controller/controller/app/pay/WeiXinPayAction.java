@@ -10,6 +10,8 @@ import java.util.UUID;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +30,8 @@ import com.xiaoyun.main.util.PayUtil;
 @Controller
 @RequestMapping(value = "/xiaochengxu")
 public class WeiXinPayAction extends AbstractBaseController {
+	
+	Logger logger = Logger.getLogger(WeiXinPayAction.class);
 
     /** 
      * @Description: 发起微信支付 
@@ -51,17 +55,17 @@ public class WeiXinPayAction extends AbstractBaseController {
             packageParams.put("mch_id", WxPayConfig.mch_id);  
             packageParams.put("nonce_str", nonce_str);  
             packageParams.put("body", body);  
-            packageParams.put("out_trade_no", "123456789");//商户订单号  
-            packageParams.put("total_fee", "1");//支付金额，这边需要转成字符串类型，否则后面的签名会失败  
+            packageParams.put("out_trade_no", "123456789");						//商户订单号  
+            packageParams.put("total_fee", "1");								//支付金额，这边需要转成字符串类型，否则后面的签名会失败  
             packageParams.put("spbill_create_ip", spbill_create_ip);  
-            packageParams.put("notify_url", WxPayConfig.notify_url);//支付成功后的回调地址  
-            packageParams.put("trade_type", WxPayConfig.TRADETYPE);//支付方式  
+            packageParams.put("notify_url", WxPayConfig.notify_url);			//支付成功后的回调地址  
+            packageParams.put("trade_type", WxPayConfig.TRADETYPE);				//支付方式  
             packageParams.put("openid", openid);  
                  
-                String prestr = PayUtil.createLinkString(packageParams); // 把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串   
+            String prestr = PayUtil.createLinkString(packageParams); // 把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串   
               
-                //MD5运算生成签名，这里是第一次签名，用于调用统一下单接口  
-                String mysign = PayUtil.sign(prestr, WxPayConfig.key, "utf-8").toUpperCase();  
+            //MD5运算生成签名，这里是第一次签名，用于调用统一下单接口  
+            String mysign = PayUtil.sign(prestr, WxPayConfig.key, "utf-8").toUpperCase();  
               
             //拼接统一下单接口使用的xml数据，要将上一步生成的签名一起拼接进去  
             String xml = "<xml>" + "<appid>" + WxPayConfig.appid + "</appid>"   
@@ -70,19 +74,19 @@ public class WeiXinPayAction extends AbstractBaseController {
                     + "<nonce_str>" + nonce_str + "</nonce_str>"   
                     + "<notify_url>" + WxPayConfig.notify_url + "</notify_url>"   
 //                    + "<openid>" + order.getOpenId() + "</openid>"   				//TODO  获取openid
-//                    + "<out_trade_no>" + order.getOrderNo() + "</out_trade_no>"   	//TODO	获取订单号
+//                    + "<out_trade_no>" + order.getOrderNo() + "</out_trade_no>"   //TODO	获取订单号
                     + "<spbill_create_ip>" + spbill_create_ip + "</spbill_create_ip>"   
 //                    + "<total_fee>" + order.getPayMoney() + "</total_fee>"  		//TODO	获取支付金额
                     + "<trade_type>" + WxPayConfig.TRADETYPE + "</trade_type>"   
                     + "<sign>" + mysign + "</sign>"  
                     + "</xml>";  
               
-            System.out.println("调试模式_统一下单接口 请求XML数据：" + xml);  
+            logger.info("调试模式_统一下单接口 请求XML数据：" + xml);  
   
             //调用统一下单接口，并接受返回的结果  
             String result = PayUtil.httpRequest(WxPayConfig.pay_url, "POST", xml);  
               
-            System.out.println("调试模式_统一下单接口 返回XML数据：" + result);  
+            logger.info("调试模式_统一下单接口 返回XML数据：" + result);  
               
             // 将解析结果存储在HashMap中     
             Map<String,String> map = PayUtil.doXMLParse(result);  
@@ -130,14 +134,14 @@ public class WeiXinPayAction extends AbstractBaseController {
         //sb为微信返回的xml  
         String notityXml = sb.toString();  
         String resXml = "";  
-        System.out.println("接收到的报文：" + notityXml);  
+        logger.info("接收到的报文：" + notityXml);  
       
         Map<String,String> map = PayUtil.doXMLParse(notityXml);  
           
-        String returnCode = (String) map.get("return_code");  
+        String returnCode = map.get("return_code");  
         if("SUCCESS".equals(returnCode)){  
             //验证签名是否正确  
-            if(PayUtil.verify(PayUtil.createLinkString(map), (String)map.get("sign"), WxPayConfig.key, "utf-8")){  
+            if(PayUtil.verify(PayUtil.createLinkString(map),map.get("sign"), WxPayConfig.key, "utf-8")){  
                 /**此处添加自己的业务逻辑代码start**/  
                   
                   
@@ -150,8 +154,8 @@ public class WeiXinPayAction extends AbstractBaseController {
             resXml = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code>"  
             + "<return_msg><![CDATA[报文为空]]></return_msg>" + "</xml> ";  
         }  
-        System.out.println(resXml);  
-        System.out.println("微信支付回调数据结束");  
+        logger.info(resXml);  
+        logger.info("微信支付回调数据结束");  
   
   
         BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());  

@@ -150,5 +150,39 @@ public class AppSupplyServiceImpl extends BaseServiceImpl<Supply> implements App
 		}
 		
 	}
+	
+	
+	public int updateSupply(Supply supply,String[] tagIdArr){
+		
+		Date now = new Date();
+		
+		supply.setClicks(0);
+		supply.setCreatetime(now);
+		supply.setStatus("checking");
+		supply.setUpdatetime(now);
+		 
+		List<SupplyTagTemp> supplyTagTempList = new ArrayList<>();
+		
+		for(String tagIdStr : tagIdArr){
+			SupplyTagTemp supplyTagTemp = new SupplyTagTemp();
+			supplyTagTemp.setCreatetime(now);
+			supplyTagTemp.setSupplyid(supply.getId());
+			supplyTagTemp.setTagid(Long.valueOf(tagIdStr));
+			supplyTagTempList.add(supplyTagTemp);
+		}
+		
+		try{
+			supplyMapper.updateByPrimaryKeySelective(supply);
+			
+			supplyTagTempMapper.addSupplyTagTemp(supplyTagTempList);
+			
+			return 2;
+		}catch(Exception e){
+			//throw new RuntimeException(); 			事务回滚方法一
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();			//事务回滚方法二
+			return 0;
+		}
+		
+	}
 
 }

@@ -19,5 +19,7 @@ public interface AppBuyService extends BaseService<Buy> {
 	public boolean checkCanView(Buy buy,User user,ViewChance selectViewChance);
 	
 	public int addBuy(Buy buy,String[] tagIdArr);
+	
+	public int updateBuy(Buy buy,String[] tagIdArr);
 
 }
