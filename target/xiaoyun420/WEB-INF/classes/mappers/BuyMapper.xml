@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoyun.main.mapper.BuyMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoyun.main.model.Buy">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="categoryId1" jdbcType="BIGINT" property="categoryid1" />
+    <result column="categoryId2" jdbcType="BIGINT" property="categoryid2" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="detile" jdbcType="VARCHAR" property="detile" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="endTime" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="tagIds" jdbcType="VARCHAR" property="tagids" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="clicks" jdbcType="INTEGER" property="clicks" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="managerId" jdbcType="BIGINT" property="managerid" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, categoryId1, categoryId2, title, detile, unit, count, endTime, userId, tagIds, 
+    status, clicks, createTime, updateTime, managerId,type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from buy
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from buy
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xiaoyun.main.model.Buy" keyProperty="id" useGeneratedKeys="true">
+    insert into buy (id, categoryId1, categoryId2, 
+      title, detile, unit, 
+      count, endTime, userId, 
+      tagIds, status, clicks, 
+      createTime, updateTime, managerId,type
+      )
+    values (#{id,jdbcType=BIGINT}, #{categoryid1,jdbcType=BIGINT}, #{categoryid2,jdbcType=BIGINT}, 
+      #{title,jdbcType=VARCHAR}, #{detile,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
+      #{count,jdbcType=INTEGER}, #{endtime,jdbcType=TIMESTAMP}, #{userid,jdbcType=BIGINT}, 
+      #{tagids,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{clicks,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{managerid,jdbcType=BIGINT}, #{type,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiaoyun.main.model.Buy">
+    insert into buy
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="categoryid1 != null">
+        categoryId1,
+      </if>
+      <if test="categoryid2 != null">
+        categoryId2,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="detile != null">
+        detile,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="tagids != null">
+        tagIds,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="clicks != null">
+        clicks,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+      <if test="managerid != null">
+        managerId,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="categoryid1 != null">
+        #{categoryid1,jdbcType=BIGINT},
+      </if>
+      <if test="categoryid2 != null">
+        #{categoryid2,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="detile != null">
+        #{detile,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="tagids != null">
+        #{tagids,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="clicks != null">
+        #{clicks,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="managerid != null">
+        #{managerid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaoyun.main.model.Buy">
+    update buy
+    <set>
+      <if test="categoryid1 != null">
+        categoryId1 = #{categoryid1,jdbcType=BIGINT},
+      </if>
+      <if test="categoryid2 != null">
+        categoryId2 = #{categoryid2,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="detile != null">
+        detile = #{detile,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="endtime != null">
+        endTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="tagids != null">
+        tagIds = #{tagids,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="clicks != null">
+        clicks = #{clicks,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="managerid != null">
+        managerId = #{managerid,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiaoyun.main.model.Buy">
+    update buy
+    set categoryId1 = #{categoryid1,jdbcType=BIGINT},
+      categoryId2 = #{categoryid2,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      detile = #{detile,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      endTime = #{endtime,jdbcType=TIMESTAMP},
+      userId = #{userid,jdbcType=BIGINT},
+      tagIds = #{tagids,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      clicks = #{clicks,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      managerId = #{managerid,jdbcType=BIGINT},
+      type = #{type,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getBuyList" parameterType="java.util.Map" resultType="com.xiaoyun.main.model.vo.BuyVO">
+     select a.id buyId, a.categoryId1, a.categoryId2, a.title, a.detile, 
+     		a.unit, a.count, a.endTime,a.userId, a.tagIds,a.status, a.clicks,a.type 
+     		DATE_FORMAT(a.createTime,'%Y-%m-%d %H:%i') createTime, a.updateTime,
+     		a.managerId,b.name userName,b.phone,a.tagNames,b.detail,b.headImgUrl,
+     		c.categoryName categoryName,d.categoryName categoryName2,
+     		e.province,e.city,e.area,b.isUpLoad
+     	from (select t2.*,GROUP_CONCAT(t3.`name` separator ',') tagNames
+					from supply_tag_temp t1 
+					left join buy t2 on t1.buyId=t2.id
+					left join tag t3 on t1.tagId=t3.id 
+					where 1=1
+					<if test="buyId != null">
+						and t1.buyId=#{buyId}
+					</if>
+					group by t2.id) a 
+     	left join user b on a.userId=b.id
+     	left join address e on b.addressId=e.id
+     	left join category c on a.categoryId1=c.id
+     	left join category d on a.categoryId2=d.id
+     where a.status = 'access'
+     		<if test="keyword != null and keyword != ''">
+     			and a.tagNames like concat('%',#{keyword},'%')
+     		</if>
+     	order by a.clicks,a.createTime desc
+  </select>
+  
+</mapper>

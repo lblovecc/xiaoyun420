@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-autowire="byName">
+
+    <context:property-placeholder location="classpath*:spring/dao/web-dal-db.properties" ignore-unresolvable="true" />
+
+    <!-- Druid DataSource -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${core_jdbc_url}" />
+        <property name="username" value="${core_jdbc_user}" />
+        <property name="connectProperties">
+            <props>
+                <prop key="password">${core_jdbc_password}</prop>
+                <prop key="druid.stat.logSlowSql">true</prop>
+                <prop key="druid.stat.slowSqlMillis">500</prop>
+                <prop key="connectTimeout">1000</prop>
+                <prop key="socketTimeout">5000</prop>
+            </props>
+        </property>
+
+        <property name="initialSize" value="10" />
+        <property name="minIdle" value="10" />
+        <property name="maxActive" value="200" />
+
+        <property name="maxWait" value="1000" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+
+        <property name="timeBetweenLogStatsMillis" value="300000" />
+
+        <property name="validationQuery" value="SELECT 'x'" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+
+        <property name="poolPreparedStatements" value="false" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+
+        <property name="filters" value="stat" />
+        <property name="proxyFilters">
+            <list>
+                <ref bean="wall-filter" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="wall-filter" class="com.alibaba.druid.wall.WallFilter">
+        <property name="dbType" value="mysql" />
+    </bean>
+
+</beans>
