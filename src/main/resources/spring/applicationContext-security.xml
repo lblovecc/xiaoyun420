@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.2.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<!-- Shiro Filter -->
+	<!-- <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" /> -->
+	<!-- <bean id="myRealm" class="com.build.base.security.MyShiroRealm"></bean>
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="myRealm" />
+	</bean>
+
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login" />
+		<property name="successUrl" value="/front/index" />
+		<property name="unauthorizedUrl" value="/login"/>
+		<property name="unauthorizedUrl" value="/400.html" />
+		<property name="filterChainDefinitions">
+			<value>
+				authc
+				/app/** = anon
+				/mmm/** = anon
+				/admin2/** = anon
+				/supplier2/** = anon
+
+				/login = anon
+				/doLogin = anon
+
+				/front/** = authc
+                /frontjson/** = authc
+                /manage/** = anon
+                /managejson/** = authc
+				/druid/** = authc
+				/img/** = anon
+				/ = authc
+			</value>
+		</property>
+	</bean> -->
+
+</beans>

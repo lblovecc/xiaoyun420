@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoyun.main.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoyun.main.model.Order">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="meaId" jdbcType="INTEGER" property="meaid" />
+    <result column="orderStatus" jdbcType="VARCHAR" property="orderstatus" />
+    <result column="payStatus" jdbcType="VARCHAR" property="paystatus" />
+    <result column="actualAmount" jdbcType="INTEGER" property="actualamount" />
+    <result column="payAmount" jdbcType="INTEGER" property="payamount" />
+    <result column="payType" jdbcType="VARCHAR" property="paytype" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="managerId" jdbcType="BIGINT" property="managerid" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, meaId, orderStatus, payStatus, actualAmount, payAmount, payType, userId, managerId, 
+    createTime, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xiaoyun.main.model.Order">
+    insert into order (id, meaId, orderStatus, 
+      payStatus, actualAmount, payAmount, 
+      payType, userId, managerId, 
+      createTime, updateTime)
+    values (#{id,jdbcType=BIGINT}, #{meaid,jdbcType=INTEGER}, #{orderstatus,jdbcType=VARCHAR}, 
+      #{paystatus,jdbcType=VARCHAR}, #{actualamount,jdbcType=INTEGER}, #{payamount,jdbcType=INTEGER}, 
+      #{paytype,jdbcType=VARCHAR}, #{userid,jdbcType=BIGINT}, #{managerid,jdbcType=BIGINT}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiaoyun.main.model.Order">
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="meaid != null">
+        meaId,
+      </if>
+      <if test="orderstatus != null">
+        orderStatus,
+      </if>
+      <if test="paystatus != null">
+        payStatus,
+      </if>
+      <if test="actualamount != null">
+        actualAmount,
+      </if>
+      <if test="payamount != null">
+        payAmount,
+      </if>
+      <if test="paytype != null">
+        payType,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="managerid != null">
+        managerId,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="meaid != null">
+        #{meaid,jdbcType=INTEGER},
+      </if>
+      <if test="orderstatus != null">
+        #{orderstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paystatus != null">
+        #{paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="actualamount != null">
+        #{actualamount,jdbcType=INTEGER},
+      </if>
+      <if test="payamount != null">
+        #{payamount,jdbcType=INTEGER},
+      </if>
+      <if test="paytype != null">
+        #{paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="managerid != null">
+        #{managerid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaoyun.main.model.Order">
+    update order
+    <set>
+      <if test="meaid != null">
+        meaId = #{meaid,jdbcType=INTEGER},
+      </if>
+      <if test="orderstatus != null">
+        orderStatus = #{orderstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paystatus != null">
+        payStatus = #{paystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="actualamount != null">
+        actualAmount = #{actualamount,jdbcType=INTEGER},
+      </if>
+      <if test="payamount != null">
+        payAmount = #{payamount,jdbcType=INTEGER},
+      </if>
+      <if test="paytype != null">
+        payType = #{paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="managerid != null">
+        managerId = #{managerid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiaoyun.main.model.Order">
+    update order
+    set meaId = #{meaid,jdbcType=INTEGER},
+      orderStatus = #{orderstatus,jdbcType=VARCHAR},
+      payStatus = #{paystatus,jdbcType=VARCHAR},
+      actualAmount = #{actualamount,jdbcType=INTEGER},
+      payAmount = #{payamount,jdbcType=INTEGER},
+      payType = #{paytype,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=BIGINT},
+      managerId = #{managerid,jdbcType=BIGINT},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

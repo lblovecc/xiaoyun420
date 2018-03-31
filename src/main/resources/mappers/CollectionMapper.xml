@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoyun.main.mapper.CollectMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoyun.main.model.Collect">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="collectType" jdbcType="VARCHAR" property="collecttype" />
+    <result column="supplyId" jdbcType="BIGINT" property="supplyid" />
+    <result column="buyId" jdbcType="BIGINT" property="buyid" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, collectType, supplyId, buyId, userId, createTime, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from collection
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from collection
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xiaoyun.main.model.Collect">
+    insert into collection (id, collectType, supplyId, 
+      buyId, userId, createTime, 
+      updateTime)
+    values (#{id,jdbcType=BIGINT}, #{collecttype,jdbcType=VARCHAR}, #{supplyid,jdbcType=BIGINT}, 
+      #{buyid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiaoyun.main.model.Collect">
+    insert into collection
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="collecttype != null">
+        collectType,
+      </if>
+      <if test="supplyid != null">
+        supplyId,
+      </if>
+      <if test="buyid != null">
+        buyId,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="collecttype != null">
+        #{collecttype,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyid != null">
+        #{supplyid,jdbcType=BIGINT},
+      </if>
+      <if test="buyid != null">
+        #{buyid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaoyun.main.model.Collect">
+    update collection
+    <set>
+      <if test="collecttype != null">
+        collectType = #{collecttype,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyid != null">
+        supplyId = #{supplyid,jdbcType=BIGINT},
+      </if>
+      <if test="buyid != null">
+        buyId = #{buyid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiaoyun.main.model.Collect">
+    update collection
+    set collectType = #{collecttype,jdbcType=VARCHAR},
+      supplyId = #{supplyid,jdbcType=BIGINT},
+      buyId = #{buyid,jdbcType=BIGINT},
+      userId = #{userid,jdbcType=BIGINT},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

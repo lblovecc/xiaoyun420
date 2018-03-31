@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoyun.main.mapper.ViewChanceMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoyun.main.model.ViewChance">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="freeCount" jdbcType="INTEGER" property="freecount" />
+    <result column="forwardCount" jdbcType="INTEGER" property="forwardcount" />
+    <result column="mealCount" jdbcType="INTEGER" property="mealcount" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userId, freeCount, forwardCount, mealCount, createTime, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from view_chance
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from view_chance
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xiaoyun.main.model.ViewChance">
+    insert into view_chance (id, userId, freeCount, 
+      forwardCount, mealCount, createTime, 
+      updateTime)
+    values (#{id,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{freecount,jdbcType=INTEGER}, 
+      #{forwardcount,jdbcType=INTEGER}, #{mealcount,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiaoyun.main.model.ViewChance">
+    insert into view_chance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="freecount != null">
+        freeCount,
+      </if>
+      <if test="forwardcount != null">
+        forwardCount,
+      </if>
+      <if test="mealcount != null">
+        mealCount,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="freecount != null">
+        #{freecount,jdbcType=INTEGER},
+      </if>
+      <if test="forwardcount != null">
+        #{forwardcount,jdbcType=INTEGER},
+      </if>
+      <if test="mealcount != null">
+        #{mealcount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaoyun.main.model.ViewChance">
+    update view_chance
+    <set>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="freecount != null">
+        freeCount = #{freecount,jdbcType=INTEGER},
+      </if>
+      <if test="forwardcount != null">
+        forwardCount = #{forwardcount,jdbcType=INTEGER},
+      </if>
+      <if test="mealcount != null">
+        mealCount = #{mealcount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiaoyun.main.model.ViewChance">
+    update view_chance
+    set userId = #{userid,jdbcType=BIGINT},
+      freeCount = #{freecount,jdbcType=INTEGER},
+      forwardCount = #{forwardcount,jdbcType=INTEGER},
+      mealCount = #{mealcount,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateViewChanceForFreeCount">
+  	update view_chance set freeCount=3,updateTime=sysdate()
+  </update>
+  
+  <update id="updateViewChanceForForwardCount">
+  	update view_chance set forwardCount=0,updateTime=sysdate()
+  </update>
+  
+</mapper>

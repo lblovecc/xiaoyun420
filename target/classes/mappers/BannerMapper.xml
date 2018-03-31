@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoyun.main.mapper.BannerMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoyun.main.model.Banner">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pictureUrl" jdbcType="VARCHAR" property="pictureurl" />
+    <result column="linkUrl" jdbcType="VARCHAR" property="linkurl" />
+    <result column="addressId" jdbcType="BIGINT" property="addressid" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="managerId" jdbcType="BIGINT" property="managerid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, pictureUrl, linkUrl, addressId, createTime, updateTime, managerId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from banner
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from banner
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xiaoyun.main.model.Banner">
+    insert into banner (id, name, pictureUrl, 
+      linkUrl, addressId, createTime, 
+      updateTime, managerId)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{pictureurl,jdbcType=VARCHAR}, 
+      #{linkurl,jdbcType=VARCHAR}, #{addressid,jdbcType=BIGINT}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{managerid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiaoyun.main.model.Banner">
+    insert into banner
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="pictureurl != null">
+        pictureUrl,
+      </if>
+      <if test="linkurl != null">
+        linkUrl,
+      </if>
+      <if test="addressid != null">
+        addressId,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+      <if test="managerid != null">
+        managerId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureurl != null">
+        #{pictureurl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkurl != null">
+        #{linkurl,jdbcType=VARCHAR},
+      </if>
+      <if test="addressid != null">
+        #{addressid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="managerid != null">
+        #{managerid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaoyun.main.model.Banner">
+    update banner
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureurl != null">
+        pictureUrl = #{pictureurl,jdbcType=VARCHAR},
+      </if>
+      <if test="linkurl != null">
+        linkUrl = #{linkurl,jdbcType=VARCHAR},
+      </if>
+      <if test="addressid != null">
+        addressId = #{addressid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="managerid != null">
+        managerId = #{managerid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiaoyun.main.model.Banner">
+    update banner
+    set name = #{name,jdbcType=VARCHAR},
+      pictureUrl = #{pictureurl,jdbcType=VARCHAR},
+      linkUrl = #{linkurl,jdbcType=VARCHAR},
+      addressId = #{addressid,jdbcType=BIGINT},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      managerId = #{managerid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getBannerList" parameterType="java.util.Map" resultType="com.xiaoyun.main.model.Banner">
+  		select a.id,a.name,a.pictureUrl,a.linkUrl,a.addressId,a.createTime,a.updateTime,a.managerId
+  			from banner a
+  			left join address b on a.address=b.id
+  			where 1=1 
+  			<if test="city != null and city != ''">
+  				and b.city like concat('%',#{city},'%')
+  			</if>
+  </select>
+</mapper>

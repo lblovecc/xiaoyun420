@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaoyun.main.mapper.CategoryMapper">
+  <resultMap id="BaseResultMap" type="com.xiaoyun.main.model.Category">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="categoryName" jdbcType="VARCHAR" property="categoryname" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="parentId" jdbcType="BIGINT" property="parentid" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="managerId" jdbcType="BIGINT" property="managerid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, categoryName, type, parentId, createTime, updateTime, managerId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from category
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from category
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xiaoyun.main.model.Category">
+    insert into category (id, categoryName, type, 
+      parentId, createTime, updateTime, 
+      managerId)
+    values (#{id,jdbcType=BIGINT}, #{categoryname,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{parentid,jdbcType=BIGINT}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{managerid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiaoyun.main.model.Category">
+    insert into category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="categoryname != null">
+        categoryName,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="parentid != null">
+        parentId,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+      <if test="managerid != null">
+        managerId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="categoryname != null">
+        #{categoryname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="managerid != null">
+        #{managerid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaoyun.main.model.Category">
+    update category
+    <set>
+      <if test="categoryname != null">
+        categoryName = #{categoryname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null">
+        parentId = #{parentid,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="managerid != null">
+        managerId = #{managerid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiaoyun.main.model.Category">
+    update category
+    set categoryName = #{categoryname,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      parentId = #{parentid,jdbcType=BIGINT},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      managerId = #{managerid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getCategoryList" parameterType="java.util.Map" resultType="com.xiaoyun.main.model.Category">
+  	  select a.id, a.categoryName, a.type, a.parentId, 
+  	  		a.createTime, a.updateTime, a.managerId
+  	  	from category a
+  	  	left join category b on a.parentId=b.id
+  	  	where 1=1
+  	  	<if test="type != null and type != ''">
+  	  		and a.type=#{type}
+  	  	</if>
+  	  	<if test="parentId != null and parent != ''">
+  	  		and a.parentId=#{parentId}
+  	  	</if> 
+  </select>
+</mapper>

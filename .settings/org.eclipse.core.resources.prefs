@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/java/com/xiaoyun/base/security/MyShiroRealm.java=UTF-8
+encoding//src/main/java/com/xiaoyun/base/web/interceptor/CommonInterceptor.java=UTF-8
+encoding//src/main/java/com/xiaoyun/base/web/servlet/ImageServlet.java=UTF-8
+encoding//src/main/java/com/xiaoyun/main/model/User.java=UTF-8
+encoding//src/main/java/com/xiaoyun/main/model/vo/BuyVO.java=UTF-8
+encoding//src/main/java/com/xiaoyun/main/model/vo/SupplyVO.java=UTF-8
+encoding//src/main/java/com/xiaoyun/main/model/vo/UserVO.java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/webapp/WEB-INF/xiaoyun/tag/mng.html=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8
