@@ -52,9 +52,9 @@ public class WeiXinLoginAction extends AbstractBaseController{
 	
 	private static Logger log = Logger.getLogger(WeiXinLoginAction.class);
 
-	private static final String APPID = "wx3c************b8";
+	private static final String APPID = "wx1f3974237719b7b5";
 
-	private static final String SECRET = "75324***************500ae89726";
+	private static final String SECRET = "9253bc06db40c2673860358940ce673b";
 
 	@Autowired
 	private AppUserService userService;
@@ -70,7 +70,7 @@ public class WeiXinLoginAction extends AbstractBaseController{
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping({"/weixin_user_authorization.do"})
+	@RequestMapping({"/weixin_user_authorization"})
 	public JSONObject weixinUserAuthorization(HttpServletRequest request, HttpServletResponse response){
 		// 微信端登录code值
 		String wxCode = request.getParameter("code");
@@ -84,7 +84,7 @@ public class WeiXinLoginAction extends AbstractBaseController{
 		requestUrlParam.put("grant_type", "authorization_code"); 	// 默认参数
 		
 		/**
-		 *  openid	用户唯一标识
+		 *  openid	 用户唯一标识
 		 *	session_key	会话密钥
 		 *	unionid	用户在开放平台的唯一标识符(unionid 只在满足一定条件的情况下返回)
 		 *  https://mp.weixin.qq.com/debug/wxadoc/dev/api/uinionID.html		(unionid说明)
@@ -143,7 +143,7 @@ public class WeiXinLoginAction extends AbstractBaseController{
 		}
 	 */
 	@ResponseBody
-	@RequestMapping({"/get_weixin_user_info.do"})
+	@RequestMapping({"/get_weixin_user_info"})
 	public JSONObject getUserInfo(String encryptedData, String sessionKey, String iv) {
 		
 		// 被加密的数据
