@@ -1,14 +1,16 @@
 package com.xiaoyun.main.service.manager.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.mapper.SupplyMapper;
 import com.xiaoyun.main.model.Supply;
+import com.xiaoyun.main.model.vo.SupplyVO;
 import com.xiaoyun.main.service.base.impl.BaseServiceImpl;
 import com.xiaoyun.main.service.manager.SupplyService;
 
@@ -21,29 +23,25 @@ public class SupplyServiceImpl extends BaseServiceImpl<Supply> implements Supply
 	private SupplyMapper supplyMapper ;
 	
 	@Override
-	public List<Supply> getList(Map<String, Object> qryMap) {
-		
-	/*	List<Supply> list=supplyMapper.getList(qryMap);
-		return list;*/
-		return null;
+	public List<SupplyVO> getList(Map<String, Object> qryMap,Paginator paginator) {
+		PageHelper.startPage(paginator.getPageNumber(),paginator.getPageSize());
+		List<SupplyVO> list=supplyMapper.getSupplyList(qryMap);
+		return list;
 	}
 
 	@Override
 	public int add(Supply supply) {
-		// TODO Auto-generated method stub
-		return 0;
+		return supplyMapper.insertSelective(supply);
 	}
 
 	@Override
 	public int delete(long id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return supplyMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
 	public int update(Supply supply) {
-		// TODO Auto-generated method stub
-		return 0;
+		return supplyMapper.updateByPrimaryKeySelective(supply);
 	}
 
 	@Override

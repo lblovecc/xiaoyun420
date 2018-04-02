@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.mapper.MenuMapper;
 import com.xiaoyun.main.model.Menu;
 import com.xiaoyun.main.service.base.impl.BaseServiceImpl;
@@ -18,8 +20,8 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 	@Autowired
 	private MenuMapper menuMapper;
 	@Override
-	public List<Menu> getMenuList(Map<String, Object> qryMap) {
-		
+	public List<Menu> getMenuList(Map<String, Object> qryMap,Paginator paginator) {
+		PageHelper.startPage(paginator.getPageNumber(), paginator.getPageSize());
 		return menuMapper.getList(qryMap);
 	}
 

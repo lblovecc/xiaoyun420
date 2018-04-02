@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.controller.base.AbstractBaseController;
 import com.xiaoyun.main.model.Role;
 import com.xiaoyun.main.service.manager.RoleService;
@@ -27,10 +29,10 @@ public class RoleManagerController extends AbstractBaseController {
 	private RoleService roleService;
 	
 	@RequestMapping("/getRoleList")
-	public JSONObject getRoleList(HttpServletRequest request){
+	public JSONObject getRoleList(HttpServletRequest request,@ModelAttribute Paginator paginator){
 		
-		Map<String,Object> qryMap=new HashMap();
-		List<Role> list=roleService.getRoleList(qryMap);
+		Map<String,Object> qryMap=new HashMap<>();
+		List<Role> list=roleService.getRoleList(qryMap, paginator);
 		
 		return getJsonResult(list);
 	}

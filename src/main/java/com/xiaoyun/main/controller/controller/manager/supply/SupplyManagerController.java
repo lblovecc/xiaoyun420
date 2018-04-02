@@ -8,11 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.controller.base.AbstractBaseController;
 import com.xiaoyun.main.model.Supply;
+import com.xiaoyun.main.model.vo.SupplyVO;
 import com.xiaoyun.main.service.manager.SupplyService;
 import com.xiaoyun.main.service.manager.UserService;
 @Controller
@@ -31,24 +34,24 @@ public class SupplyManagerController extends AbstractBaseController{
 	 * @return
 	 */
 	@RequestMapping("/getList")
-	public JSONObject getSupplyList(HttpServletRequest request,String content,String value){
+	public JSONObject getSupplyList(HttpServletRequest request,String content,String value,@ModelAttribute Paginator paginator){
 		
 		Map<String,Object> qryMap = new HashMap<>();
 		
-		List<Supply> list=null;
+		List<SupplyVO> list=null;
 		if("null".equals(content)){
-			list=supplyService.getList(qryMap);
+			list=supplyService.getList(qryMap,paginator);
 			return getJsonResult(list);
 		}else{
 			if("title".equals(content)){
 				qryMap.put("title", value);
-				list=supplyService.getList(qryMap);
+				list=supplyService.getList(qryMap,paginator);
 				return getJsonResult(list);
 			}
 			if("openid".equals(content)){
 				Long userId=userService.getUserByOpenid(value).getId();
 				qryMap.put("openid", userId);
-				list=supplyService.getList(qryMap);
+				list=supplyService.getList(qryMap,paginator);
 				return getJsonResult(list);
 			}
 			return null;

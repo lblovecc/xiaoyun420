@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.mapper.RoleMapper;
 import com.xiaoyun.main.model.Role;
 import com.xiaoyun.main.service.base.impl.BaseServiceImpl;
@@ -21,8 +23,8 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
 	
 	
 	@Override
-	public List<Role> getRoleList(Map<String, Object> qryMap) {
-		// TODO Auto-generated method stub
+	public List<Role> getRoleList(Map<String, Object> qryMap, Paginator paginator) {
+		PageHelper.startPage(paginator.getPageNumber(),paginator.getPageSize());
 		return roleMapper.getList(qryMap);
 	}
 

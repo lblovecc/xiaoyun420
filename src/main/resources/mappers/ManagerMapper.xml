@@ -150,4 +150,9 @@
       roleId = #{roleid,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+   <select id="getManagerList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from manager
+  </select>
 </mapper>

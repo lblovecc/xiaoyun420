@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.mapper.TagMapper;
 import com.xiaoyun.main.model.Tag;
 import com.xiaoyun.main.service.base.impl.BaseServiceImpl;
@@ -18,8 +20,8 @@ public class TagServiceImpl extends BaseServiceImpl<Tag> implements TagService{
 	@Autowired
 	private TagMapper tagMapper;
 	@Override
-	public List<Tag> getList(Map<String, Object> qryMap) {
-		
+	public List<Tag> getList(Map<String, Object> qryMap, Paginator paginator) {
+		PageHelper.startPage(paginator.getPageNumber(), paginator.getPageSize());
 		return tagMapper.getTagList(qryMap);
 	}
 

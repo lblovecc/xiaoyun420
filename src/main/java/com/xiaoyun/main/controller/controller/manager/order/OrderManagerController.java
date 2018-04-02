@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.controller.base.AbstractBaseController;
 import com.xiaoyun.main.model.Order;
 import com.xiaoyun.main.service.manager.OrderService;
@@ -31,21 +33,21 @@ public class OrderManagerController extends AbstractBaseController {
 	 * @return
 	 */
 	@RequestMapping("/getList")
-	public JSONObject getOrderList(HttpServletRequest request,String content,String value){
+	public JSONObject getOrderList(HttpServletRequest request,String content,String value,@ModelAttribute Paginator paginator){
 		Map<String,Object> qryMap = new HashMap<>();
 		List<Order> list=null;
 		if("null".equals(content)){
-			list=orderService.getList(qryMap);
+			list=orderService.getList(qryMap, paginator);
 			 return getJsonResult(list);
 		}else{
 			if("orderStatus".equals(content)){
 				qryMap.put("orderStatus", value);
-				list=orderService.getList(qryMap);
+				list=orderService.getList(qryMap, paginator);
 				return getJsonResult(list);
 			}
 			if("payStatus".equals(content)){
 				qryMap.put("payStatus", value);
-				list=orderService.getList(qryMap);
+				list=orderService.getList(qryMap, paginator);
 				return getJsonResult(list);
 			}
 		}
