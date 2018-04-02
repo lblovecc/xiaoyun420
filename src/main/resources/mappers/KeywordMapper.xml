@@ -90,4 +90,13 @@
       userId = #{userid,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+   <select id="getKeyList" parameterType="java.util.Map"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from keyword
+    where 1=1 
+  	<if test="name != null and name != ''">
+  		and name like concat('%',#{name},'%')
+  	</if>
+  </select>
 </mapper>

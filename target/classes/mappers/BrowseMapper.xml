@@ -114,4 +114,9 @@
       buyId = #{buyid,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+   <select id="getBrowseList"  resultType="com.xiaoyun.main.model.Browse">
+  		select   
+  		<include refid="Base_Column_List" /> 
+  		from browse 
+  </select>
 </mapper>

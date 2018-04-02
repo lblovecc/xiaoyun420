@@ -206,4 +206,19 @@
       updateTime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+   <select id="getList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where 1=1 
+   <if test="orderStatus != null and orderStatus != ''">
+  		and orderStatus =  #{orderStatus}
+  	</if>
+  	<if test="payStatus != null and payStatus != ''">
+  		and payStatus =  #{payStatus}
+  	</if>
+  	<if test="payType != null and payType != ''">
+  		and payType =  #{payType}
+  	</if>
+  </select>
 </mapper>

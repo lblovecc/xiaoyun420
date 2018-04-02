@@ -1,5 +1,7 @@
 package com.xiaoyun.main.mapper;
 
+import java.util.List;
+
 import com.xiaoyun.main.model.Collect;
 
 public interface CollectMapper {
@@ -14,4 +16,6 @@ public interface CollectMapper {
     int updateByPrimaryKeySelective(Collect record);
 
     int updateByPrimaryKey(Collect record);
+    
+    List<Collect> getCollectList();
 }

@@ -27,4 +27,8 @@ public interface UserMapper {
     List<SupplyAndBuyVO> getSupplyAndBuyList(Map<String,Object> qryMap);
     
     List<CollectVO> getCollectList(Map<String,Object> qryMap);
+    
+    User findUserByOpenid(String openid);
+    
+    List<User> getUserList(Map<String, Object> qryMap);
 }

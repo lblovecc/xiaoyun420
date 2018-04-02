@@ -1,5 +1,8 @@
 package com.xiaoyun.main.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.xiaoyun.main.model.Order;
 
 public interface OrderMapper {
@@ -50,4 +53,5 @@ public interface OrderMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Order record);
+    List<Order> getList(Map<String, Object> qryMap);
 }

@@ -1,5 +1,8 @@
 package com.xiaoyun.main.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import com.xiaoyun.main.model.Browse;
 
 public interface BrowseMapper {
@@ -14,4 +17,6 @@ public interface BrowseMapper {
     int updateByPrimaryKeySelective(Browse record);
 
     int updateByPrimaryKey(Browse record);
+    
+    List<Browse> getBrowseList(Map<String,Object> qryMap);
 }
