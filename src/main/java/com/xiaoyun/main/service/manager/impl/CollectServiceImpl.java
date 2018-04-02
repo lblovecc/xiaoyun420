@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.mapper.CollectMapper;
 import com.xiaoyun.main.model.Collect;
 import com.xiaoyun.main.service.base.impl.BaseServiceImpl;
@@ -19,8 +21,8 @@ public class CollectServiceImpl extends BaseServiceImpl<Collect> implements Coll
 	private CollectMapper collectMapper;
 	
 	@Override
-	public List<Collect> getCollectList() {
-
+	public List<Collect> getCollectList(Paginator paginator) {
+		PageHelper.startPage(paginator.getPageNumber(), paginator.getPageSize());
 		return collectMapper.getCollectList();
 	}
 

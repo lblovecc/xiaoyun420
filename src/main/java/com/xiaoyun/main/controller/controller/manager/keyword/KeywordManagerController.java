@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.controller.base.AbstractBaseController;
 import com.xiaoyun.main.model.Keyword;
 import com.xiaoyun.main.service.manager.KeywordService;
@@ -33,15 +35,15 @@ public class KeywordManagerController extends AbstractBaseController {
 	 * @return
 	 */
 	@RequestMapping("/getList")
-	public JSONObject getKeywordList(HttpServletRequest request,String name ){
+	public JSONObject getKeywordList(HttpServletRequest request,String name,String value ,@ModelAttribute Paginator paginator){
 		Map<String,Object> qryMap = new HashMap<>();
 		List<Keyword> keywordList=null;
 		if("null".equals(name)){
-			keywordList=keywordService.getList(qryMap);
+			keywordList=keywordService.getList(qryMap,paginator);
 			return getJsonResult(keywordList);
 		}else{
-			qryMap.put("name", name);
-			keywordService.getList(qryMap);
+			qryMap.put("name", value);
+			keywordService.getList(qryMap,paginator);
 			return getJsonResult(keywordList);
 		}
 	}

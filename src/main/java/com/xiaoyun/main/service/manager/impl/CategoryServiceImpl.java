@@ -1,6 +1,5 @@
 package com.xiaoyun.main.service.manager.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,11 +28,25 @@ public class CategoryServiceImpl extends BaseServiceImpl<Category> implements Ca
 	public List<Category> getSecondLevel(Map<String, Object> qryMap) {
 		return categoryMapper.getCategoryList(qryMap);
 	}
+	
 
 	@Override
 	public Mapper<Category> getMapper() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int addGategory(Category category) {
+		
+		return categoryMapper.insertSelective(category);
+	}
+
+	@Override
+	public int deleteSecondLevel(long id) {
+		
+		return categoryMapper.deleteByPrimaryKey(id);
+	}
+
 
 }

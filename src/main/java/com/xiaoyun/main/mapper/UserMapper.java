@@ -31,4 +31,6 @@ public interface UserMapper {
     User findUserByOpenid(String openid);
     
     List<User> getUserList(Map<String, Object> qryMap);
+    
+    List<User> getCompanyList(Map<String, Object> qryMap);
 }

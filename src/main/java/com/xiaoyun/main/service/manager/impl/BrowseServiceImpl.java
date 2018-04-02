@@ -5,7 +5,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
+import com.github.pagehelper.PageHelper;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.mapper.BrowseMapper;
 import com.xiaoyun.main.model.Browse;
 import com.xiaoyun.main.service.base.impl.BaseServiceImpl;
@@ -19,8 +22,8 @@ public class BrowseServiceImpl extends BaseServiceImpl<Browse> implements Browse
 	@Autowired
 	private BrowseMapper browseMapper;
 	@Override
-	public List<Browse> getBrowseList(Map<String, Object> qryMap) {
-	
+	public List<Browse> getBrowseList(Map<String, Object> qryMap,Paginator paginator) {
+		PageHelper.startPage(paginator.getPageNumber(), paginator.getPageSize());
 		return 	browseMapper.getBrowseList(qryMap);
 	}
 	

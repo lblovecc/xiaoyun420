@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.mapper.BannerMapper;
 import com.xiaoyun.main.model.Banner;
 import com.xiaoyun.main.service.base.impl.BaseServiceImpl;
@@ -18,7 +20,8 @@ public class BannerServiceImppl extends BaseServiceImpl<Banner> implements Banne
 	@Autowired
 	private BannerMapper bannerMapper;
 	@Override
-	public List<Banner> getBannerList(Map<String, Object> qryMap) {
+	public List<Banner> getBannerList(Map<String, Object> qryMap,Paginator paginator) {
+		PageHelper.startPage(paginator.getPageNumber(), paginator.getPageSize());
 		return bannerMapper.getBannerList(qryMap);
 	}
 

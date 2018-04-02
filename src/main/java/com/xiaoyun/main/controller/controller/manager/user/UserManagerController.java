@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.controller.base.AbstractBaseController;
 import com.xiaoyun.main.model.User;
 import com.xiaoyun.main.service.manager.UserService;
@@ -23,12 +25,12 @@ public class UserManagerController extends AbstractBaseController{
 	@Autowired
 	private UserService userService;
 	@RequestMapping({"/getUserList"})
-	public JSONObject getUserList(HttpServletRequest request, HttpServletResponse response,String content,String value){
+	public JSONObject getUserList(HttpServletRequest request, HttpServletResponse response,String content,String value,@ModelAttribute Paginator paginator){
 		
 		Map<String,Object> qryMap = new HashMap<>();
 		List<User> userList = null;
 		if("null".equals(content)){
-			userList = userService.getUserList(qryMap);
+			userList = userService.getUserList(qryMap, paginator);
 			return getJsonResult(userList);
 		}else{
 			if("openid".equals(content)){
@@ -37,7 +39,7 @@ public class UserManagerController extends AbstractBaseController{
 			if("status".equals(content)){
 				qryMap.put("status", value);
 			}
-			userList = userService.getUserList(qryMap);
+			userList = userService.getUserList(qryMap,paginator);
 			return getJsonResult(userList);
 		}
 	}

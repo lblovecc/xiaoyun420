@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.mapper.UserMapper;
 import com.xiaoyun.main.model.User;
 import com.xiaoyun.main.service.base.impl.BaseServiceImpl;
@@ -33,7 +35,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	}
 
 	@Override
-	public List<User> getUserList(Map<String, Object> qryMap) {
+	public List<User> getUserList(Map<String, Object> qryMap,Paginator paginator) {
+		PageHelper.startPage(paginator.getPageNumber(), paginator.getPageSize());
 		return userMapper.getUserList(qryMap);
 	}
 
@@ -46,6 +49,12 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	@Override
 	public int update(User user) {
 		return userMapper.updateByPrimaryKeySelective(user);
+	}
+
+	@Override
+	public List<User> getCompanyList(Map<String, Object> qryMap,Paginator paginator) {
+		PageHelper.startPage(paginator.getPageNumber(), paginator.getPageSize());
+		return userMapper.getCompanyList(qryMap);
 	}
 
 

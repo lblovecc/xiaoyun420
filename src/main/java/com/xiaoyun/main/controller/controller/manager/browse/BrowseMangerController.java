@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.controller.base.AbstractBaseController;
 import com.xiaoyun.main.model.Browse;
 import com.xiaoyun.main.service.manager.BrowseService;
@@ -24,9 +26,9 @@ public class BrowseMangerController extends AbstractBaseController {
 	@Autowired
 	private BrowseService browseService;
 	@RequestMapping("/getList")
-	public JSONObject getTagList(HttpServletRequest request, HttpServletResponse response){
+	public JSONObject getTagList(HttpServletRequest request, HttpServletResponse response,@ModelAttribute Paginator paginator){
 		Map<String,Object> qryMap = new HashMap<>();
-		List<Browse> list=browseService.getBrowseList(qryMap);
+		List<Browse> list=browseService.getBrowseList(qryMap, paginator);
 		return getJsonResult(list);
 	}
 

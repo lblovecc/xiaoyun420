@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.xiaoyun.main.mapper.SupplyMapper;
 import com.xiaoyun.main.model.Supply;
 import com.xiaoyun.main.service.base.impl.BaseServiceImpl;
 import com.xiaoyun.main.service.manager.SupplyService;
@@ -17,13 +18,14 @@ import tk.mybatis.mapper.common.Mapper;
 public class SupplyServiceImpl extends BaseServiceImpl<Supply> implements SupplyService {
 
 	@Autowired
-	private SupplyService supplyService;
+	private SupplyMapper supplyMapper ;
 	
 	@Override
 	public List<Supply> getList(Map<String, Object> qryMap) {
 		
-		List<Supply> list=supplyService.getList(qryMap);
-		return list;
+	/*	List<Supply> list=supplyMapper.getList(qryMap);
+		return list;*/
+		return null;
 	}
 
 	@Override

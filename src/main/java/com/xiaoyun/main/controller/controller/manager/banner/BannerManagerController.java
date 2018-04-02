@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.controller.base.AbstractBaseController;
 import com.xiaoyun.main.model.Banner;
 import com.xiaoyun.main.service.manager.BannerService;
@@ -35,10 +37,10 @@ public class BannerManagerController extends AbstractBaseController {
 	 */
 	@ResponseBody
 	@RequestMapping({"/getBannerList"})
-	public JSONObject getBannerList(HttpServletRequest request, HttpServletResponse response){
+	public JSONObject getBannerList(HttpServletRequest request, HttpServletResponse response,@ModelAttribute Paginator paginator){
 		
 		Map<String,Object> qryMap = new HashMap<>();
-		List<Banner> advertList = bannerService.getBannerList(qryMap);
+		List<Banner> advertList = bannerService.getBannerList(qryMap,paginator);
 		return getJsonResult(advertList);
 		
 	}
