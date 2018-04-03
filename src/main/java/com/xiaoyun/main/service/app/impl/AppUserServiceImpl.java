@@ -37,12 +37,6 @@ public class AppUserServiceImpl extends BaseServiceImpl<User> implements AppUser
 	@Autowired
 	private AddressMapper addressMapper;
 
-	@Override
-	public Mapper<User> getMapper() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Transactional
 	@Override
 	public int saveUserInfo(User user) {
@@ -50,9 +44,10 @@ public class AppUserServiceImpl extends BaseServiceImpl<User> implements AppUser
 		Date now = new Date();
 		
 		user.setCreatetime(now);
+		user.setUpdatetime(now);
 		
 		try{
-			userMapper.insert(user);
+			userMapper.insertSelective(user);
 			
 			ViewChance viewChance = new ViewChance();
 			viewChance.setCreatetime(now);
@@ -72,6 +67,7 @@ public class AppUserServiceImpl extends BaseServiceImpl<User> implements AppUser
 		}
 	}
 
+	@Transactional
 	@Override
 	public int updateUserInfo(User user, Address address) {
 		
@@ -110,6 +106,20 @@ public class AppUserServiceImpl extends BaseServiceImpl<User> implements AppUser
 		PageHelper.startPage(paginator.getPage(), paginator.getRows());
 		
 		return userMapper.getCollectList(qryMap);
+	}
+	
+	public User selectOne(User user){
+		return userMapper.selectOne(user);
+	}
+	
+	public int updateNotNull(User user){
+		return userMapper.updateByPrimaryKeySelective(user);
+	}
+
+	@Override
+	public Mapper<User> getMapper() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

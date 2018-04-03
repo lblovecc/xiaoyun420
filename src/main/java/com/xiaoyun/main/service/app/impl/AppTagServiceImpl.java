@@ -20,15 +20,20 @@ public class AppTagServiceImpl extends BaseServiceImpl<Tag> implements AppTagSer
 	private TagMapper tagMapper;
 
 	@Override
+	public List<Tag> getTagList(Map<String, Object> qryMap) {
+		
+		return tagMapper.getTagList(qryMap);
+	}
+
+	@Override
 	public Mapper<Tag> getMapper() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
-	public List<Tag> getTagList(Map<String, Object> qryMap) {
-		
-		return tagMapper.getTagList(qryMap);
+	public Tag selectOne(Tag tag){
+		return tagMapper.selectOne(tag);
 	}
 
 }

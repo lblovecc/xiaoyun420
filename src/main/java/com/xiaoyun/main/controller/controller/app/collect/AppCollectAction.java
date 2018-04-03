@@ -69,7 +69,7 @@ public class AppCollectAction extends AbstractBaseController {
 			return getAppErrorJsonResult("1", "收藏类型不正确");
 		}
 		
-		collectService.save(collect);
+		collectService.insert(collect);
 		
 		return getAppJsonResult("收藏成功!");
 	}

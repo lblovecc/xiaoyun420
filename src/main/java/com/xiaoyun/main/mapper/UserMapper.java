@@ -33,4 +33,6 @@ public interface UserMapper {
     List<User> getUserList(Map<String, Object> qryMap);
     
     List<User> getCompanyList(Map<String, Object> qryMap);
+    
+    User selectOne(User user);
 }

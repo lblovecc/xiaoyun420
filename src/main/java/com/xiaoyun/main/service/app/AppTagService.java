@@ -9,5 +9,7 @@ import com.xiaoyun.main.service.base.BaseService;
 public interface AppTagService extends BaseService<Tag> {
 	
 	List<Tag> getTagList(Map<String,Object> qryMap);
+	
+	Tag selectOne(Tag tag);
 
 }

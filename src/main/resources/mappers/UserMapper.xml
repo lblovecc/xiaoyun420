@@ -338,4 +338,14 @@
       and  companyName like concat('%',#{companyName},'%')
      </if>
   </select>
+  
+  <select id="selectOne" parameterType="com.xiaoyun.main.model.User" resultType="com.xiaoyun.main.model.User">
+  	select 
+    	<include refid="Base_Column_List" />
+    	from user
+    	where 1=1
+    		<if test="openid != null and openid != ''">
+    			and openid=#{openid}
+    		</if>
+  </select>
 </mapper>

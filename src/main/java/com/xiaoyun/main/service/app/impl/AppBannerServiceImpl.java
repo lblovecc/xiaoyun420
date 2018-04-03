@@ -18,16 +18,16 @@ public class AppBannerServiceImpl extends BaseServiceImpl<Banner> implements App
 	
 	@Autowired
 	private BannerMapper bannerMapper;
+	
+	public List<Banner> getBannerList(Map<String,Object> qryMap){
+		
+		return bannerMapper.getBannerList(qryMap);
+	}
 
 	@Override
 	public Mapper<Banner> getMapper() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-	
-	public List<Banner> getBannerList(Map<String,Object> qryMap){
-		
-		return bannerMapper.getBannerList(qryMap);
 	}
 
 }

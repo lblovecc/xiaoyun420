@@ -18,4 +18,6 @@ public interface CollectMapper {
     int updateByPrimaryKey(Collect record);
     
     List<Collect> getCollectList();
+    
+    Collect selectOne(Collect collect);
 }

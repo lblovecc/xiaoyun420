@@ -5,7 +5,9 @@ import java.util.Map;
 
 import com.xiaoyun.main.model.Tag;
 
-public interface TagMapper {
+import tk.mybatis.mapper.common.base.select.SelectOneMapper;
+
+public interface TagMapper extends SelectOneMapper<Tag>{
     int deleteByPrimaryKey(Long id);
 
     int insert(Tag record);

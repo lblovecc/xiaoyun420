@@ -119,4 +119,20 @@
     <include refid="Base_Column_List" />
     from collection
   </select>
+  
+  <select id="selectOne" parameterType="com.xiaoyun.main.model.Collect" resultType="com.xiaoyun.main.model.Collect">
+  	select 
+  		<include refid="Base_Column_List" />
+  		from collect
+  		where 1=1
+  		<if test="supplyid != null">
+  			and supplyId=#{supplyid}
+  		</if>
+  		<if test="buyid != null">
+  			and buyId=#{buyid}
+  		</if>
+  		<if test="collecttype != null and collecttype != ''">
+  			and collecttype=#{collecttype}
+  		</if>
+  </select>
 </mapper>

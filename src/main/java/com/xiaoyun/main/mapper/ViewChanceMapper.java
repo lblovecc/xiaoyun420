@@ -18,4 +18,6 @@ public interface ViewChanceMapper {
     int updateViewChanceForFreeCount();
     
     int updateViewChanceForForwardCount();
+    
+    ViewChance selectOne(ViewChance viewChance);
 }

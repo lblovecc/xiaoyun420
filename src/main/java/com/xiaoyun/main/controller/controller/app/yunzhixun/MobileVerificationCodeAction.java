@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.xiaoyun.main.controller.base.AbstractBaseController;
 import com.xiaoyun.main.model.AuthCode;
@@ -31,9 +32,6 @@ public class MobileVerificationCodeAction extends AbstractBaseController {
 	
 	Logger logger = Logger.getLogger(MobileVerificationCodeAction.class);
 	
-	@Autowired
-	private AppAuthCodeService authCodeService;
-	
 	/**
 	 * 获取短信验证码
 	 * @param tele
@@ -41,29 +39,33 @@ public class MobileVerificationCodeAction extends AbstractBaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/get_mobile_verificationCode")
-	public void getMobileVerificationCode(String tele,HttpServletRequest request) throws Exception{
+	public static JSONObject getMobileVerificationCode(String mobile,HttpServletRequest request) throws Exception{
 		
 		Random random = new Random();
 		int num = random.nextInt(8999);
 		num = num+1000;
-		logger.info("您的验证码为=======>"+num);
+//		logger.info("您的验证码为=======>"+num);
 		
 		Map<String, String> map=new HashMap<String, String> ();
-		map.put("phoneNum",tele);
+		map.put("phoneNum",mobile);
 		map.put("code", num+"");
 		map.put("modelId","21997");
-		HttpTool.sendPost(InitSystem.getProperties("messageUrl")+"/call/sendSMS.do", new Gson().toJson(map).toString());
-
-        final HttpSession session = request.getSession(true); 
-        session.setAttribute("yanzhnum", num+"");//手机验证码
+		
+		try{
+			HttpTool.sendPost(InitSystem.getProperties("messageUrl")+"/call/sendSMS.do", new Gson().toJson(map).toString());
+		}catch(Exception e){
+//			return getAppErrorJsonResult("1", "网络错误,请重新尝试!");
+		}
+		
+//		final HttpSession session = request.getSession(true); 
+//        session.setAttribute("mobile", num+"");//手机验证码
         
-        AuthCode authCode = new AuthCode();
-        
-        authCode.setCode(String.valueOf(num));
-        authCode.setCreatetime(new Date());
-        authCode.setMobile(tele);
-        
-        authCodeService.save(authCode);
+//        return getAppJsonResult("短信发送成功!");
+        return null;
 	}
-
+	
+	public static void main(String[] args) throws Exception {
+		getMobileVerificationCode("18557539048",null);
+	}
+	
 }

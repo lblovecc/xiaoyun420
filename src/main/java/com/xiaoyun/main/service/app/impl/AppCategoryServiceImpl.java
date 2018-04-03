@@ -20,15 +20,15 @@ public class AppCategoryServiceImpl extends BaseServiceImpl<Category> implements
 	private CategoryMapper categoryMapper;
 
 	@Override
-	public Mapper<Category> getMapper() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Category> getCategoryList(Map<String, Object> qryMap) {
 
 		return categoryMapper.getCategoryList(qryMap);
+	}
+
+	@Override
+	public Mapper<Category> getMapper() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

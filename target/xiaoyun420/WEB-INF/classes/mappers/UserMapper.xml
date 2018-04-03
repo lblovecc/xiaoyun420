@@ -316,4 +316,36 @@
 				LEFT JOIN buy b ON t2.buyId=b.id AND t2.collectType='buy' where t2.userId=#{userId}) t 
 			ORDER BY t.collectTime DESC 
   </select>
+   <select id="getUserList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select openid,nickname
+    
+    from user
+    where 1=1
+    <if test="openid != null">
+       and  openid = #{openid,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null">
+       and  status = #{status,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <select id="getCompanyList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where 1=1
+    and companyName!= 'null'
+    <if test="companyname != null">
+      and  companyName like concat('%',#{companyName},'%')
+     </if>
+  </select>
+  
+  <select id="selectOne" parameterType="com.xiaoyun.main.model.User" resultType="com.xiaoyun.main.model.User">
+  	select 
+    	<include refid="Base_Column_List" />
+    	from user
+    	where 1=1
+    		<if test="openid != null and openid != ''">
+    			and openid=#{openid}
+    		</if>
+  </select>
 </mapper>

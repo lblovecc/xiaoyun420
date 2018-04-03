@@ -123,4 +123,14 @@
   	update view_chance set forwardCount=0,updateTime=sysdate()
   </update>
   
+  <select id="selectOne" parameterType="com.xiaoyun.main.model.ViewChance" resultType="com.xiaoyun.main.model.ViewChance">
+  	select 
+    	<include refid="Base_Column_List" />
+    	from view_chance
+    	where 1=1
+    	<if test="userid != null">
+    		and userId=#{userid}
+    	</if>
+  </select>
+  
 </mapper>

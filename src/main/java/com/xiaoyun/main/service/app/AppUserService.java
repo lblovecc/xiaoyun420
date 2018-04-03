@@ -21,5 +21,9 @@ public interface AppUserService extends BaseService<User>{
 	public List<SupplyAndBuyVO> getSupplyAndBuyList(Map<String,Object> qryMap,EasyUIPaginator paginator);
 	
 	public List<CollectVO> getCollectList(Map<String,Object> qryMap,EasyUIPaginator paginator);
+	
+	public User selectOne(User user);
+	
+	public int updateNotNull(User user);
 
 }

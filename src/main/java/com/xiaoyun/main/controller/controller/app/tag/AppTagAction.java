@@ -38,7 +38,12 @@ public class AppTagAction extends AbstractBaseController {
 		
 		List<Tag> tagList = tagService.getTagList(new HashMap<String,Object>());
 		
-		return getAppJsonResult(tagList);
+		Tag tag = new Tag();
+		tag.setName("标签1");
+		
+		Tag tag1 = tagService.selectOne(tag);
+		
+		return getAppJsonResult(tag1);
 	}
 
 }

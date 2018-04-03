@@ -41,12 +41,6 @@ public class AppBuyServiceImpl extends BaseServiceImpl<Buy> implements AppBuySer
 	@Autowired
 	private BuyTagTempMapper buyTagTempMapper;
 
-	@Override
-	public Mapper<Buy> getMapper() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	/**
 	 * 获取求购帖子信息
 	 */
@@ -212,6 +206,12 @@ public class AppBuyServiceImpl extends BaseServiceImpl<Buy> implements AppBuySer
 			return 0;
 		}
 		
+	}
+
+	@Override
+	public Mapper<Buy> getMapper() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

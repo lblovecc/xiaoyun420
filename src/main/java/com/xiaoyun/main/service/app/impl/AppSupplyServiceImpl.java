@@ -37,12 +37,6 @@ public class AppSupplyServiceImpl extends BaseServiceImpl<Supply> implements App
 	private SupplyTagTempMapper supplyTagTempMapper;
 
 	@Override
-	public Mapper<Supply> getMapper() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<SupplyVO> getSupplyList(Map<String, Object> qryMap,EasyUIPaginator paginator) {
 		
 		PageHelper.startPage(paginator.getPage(), paginator.getRows());
@@ -183,6 +177,12 @@ public class AppSupplyServiceImpl extends BaseServiceImpl<Supply> implements App
 			return 0;
 		}
 		
+	}
+
+	@Override
+	public Mapper<Supply> getMapper() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

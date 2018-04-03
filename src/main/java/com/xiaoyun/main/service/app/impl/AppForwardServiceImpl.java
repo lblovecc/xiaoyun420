@@ -11,7 +11,6 @@ import com.xiaoyun.main.mapper.ViewChanceMapper;
 import com.xiaoyun.main.model.Forward;
 import com.xiaoyun.main.model.ViewChance;
 import com.xiaoyun.main.service.app.AppForwardService;
-import com.xiaoyun.main.service.app.AppViewChanceService;
 import com.xiaoyun.main.service.base.impl.BaseServiceImpl;
 
 import tk.mybatis.mapper.common.Mapper;
@@ -25,15 +24,6 @@ public class AppForwardServiceImpl extends BaseServiceImpl<Forward> implements A
 	@Autowired
 	private ViewChanceMapper viewChanceMapper;
 	
-	@Autowired
-	private AppViewChanceService viewChanceService;
-
-	@Override
-	public Mapper<Forward> getMapper() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	public int forwardSupplyOrBuy(Forward forward){
 		
@@ -43,7 +33,7 @@ public class AppForwardServiceImpl extends BaseServiceImpl<Forward> implements A
 		
 		viewChance.setUserid(forward.getUserid());
 		
-		ViewChance selectViewChance = viewChanceService.selectOne(viewChance);
+		ViewChance selectViewChance = viewChanceMapper.selectOne(viewChance);
 		
 		try{
 			
@@ -73,6 +63,12 @@ public class AppForwardServiceImpl extends BaseServiceImpl<Forward> implements A
 			return 0;
 		}
 		
+	}
+
+	@Override
+	public Mapper<Forward> getMapper() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
