@@ -9,7 +9,7 @@
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, province, city, area, createTime
+    id, province, city, area,  createTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
