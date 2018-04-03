@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xiaoyun.main.common.Paginator;
@@ -35,9 +36,10 @@ public class TagManagerController extends AbstractBaseController {
 	 * @param value type的值
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping("/getList")
 	public JSONObject getList(HttpServletRequest rquest,String content ,String value,@ModelAttribute Paginator paginator){
-		
+		System.out.println("---------------------------->"+"tagManager");
 		Map<String,Object> qryMap = new HashMap<>();
 		List<Tag> list=null;
 		if("null".equals(content)){

@@ -11,7 +11,7 @@ import com.xiaoyun.main.service.base.BaseService;
  * @author Liar
  *
  */
-public interface UserService extends BaseService<User> {
+public interface UserService /*extends BaseService<User>*/ {
 
 	public User getUserByOpenid(String openid);
 	

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.xiaoyun.main.common.EasyUIPaginator;
 import com.xiaoyun.main.common.Paginator;
 import com.xiaoyun.main.mapper.UserMapper;
 import com.xiaoyun.main.model.User;
@@ -16,7 +17,7 @@ import com.xiaoyun.main.service.manager.UserService;
 
 import tk.mybatis.mapper.common.Mapper;
 @Service
-public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
+public class UserServiceImpl  implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
@@ -26,12 +27,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	public User getUserByOpenid(String openid) {
 		User user=userMapper.findUserByOpenid(openid);
 		return user;
-	}
-
-	@Override
-	public Mapper<User> getMapper() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -56,6 +51,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 		PageHelper.startPage(paginator.getPageNumber(), paginator.getPageSize());
 		return userMapper.getCompanyList(qryMap);
 	}
+
 
 
 

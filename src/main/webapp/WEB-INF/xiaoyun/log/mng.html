@@ -1,0 +1,305 @@
+#include("/tpl/header.html")
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="#">主页</a>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>系统管理</span>
+            <i class="fa fa-circle"></i>
+        </li>
+        <li>
+            <span>用户管理</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+
+<h1 class="page-title"> 商品维护
+    <!--<small>新增客户充值</small>-->
+</h1>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="row">
+
+                    <div class="col-md-2">
+                        <input id="qryGoodsName" class="form-control" type="text" placeholder="商品名称"/>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control " id="qryCategoryId">
+                            <option selected value="">商品分类</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <input id="qryBeginPrice" class="form-control" type="text" placeholder="商品价格开始(元)"/>
+                    </div>
+                    <div class="col-md-2">
+                        <input id="qryEndPrice" class="form-control" type="text" placeholder="商品价格结束(元)"/>
+                    </div>
+
+                    <div class="col-md-2">
+                        <select class="form-control " id="qryStatus">
+                            <option selected value="">商品状态</option>
+                            <option value="">全部</option>
+                            <option value="1">在售</option>
+                            <option value="0">下架</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 ">
+                        <button id="btnQry" type="button" class="btn blue ">查询</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portlet-body">
+                <!--<div id="toolbar" class="btn-group columns columns-left">-->
+                <!--<button id="btnFee" class="btn btn-danger">-->
+                <!--<i class="glyphicon glyphicon-"></i> 充值-->
+                <!--</button>-->
+                <!--</div>-->
+
+                <div id="toolbar" class="btn-group columns columns-left">
+                    <button type="button" class="btn btn-default tooltips" id="btnAdd" data-original-title="新增"
+                            data-placement="auto">
+                        <i class="glyphicon glyphicon-plus "></i>
+                        <span></span>
+                    </button>
+                    <button id="btnEdit" type="button" class="btn btn-default tooltips" data-original-title="修改">
+                        <i class="glyphicon glyphicon-wrench"></i>
+                    </button>
+
+                    <button id="btnExp" type="button" class="btn btn-default" data-original-title="导出">
+                        <span>导出</span>
+                    </button>
+
+                    <button id="btnImpSave" type="button" class="btn btn-default" data-original-title="导入新增">
+                        <span>导入新增</span>
+                    </button>
+
+                    <button id="btnImpUpdate" type="button" class="btn btn-default" data-original-title="导入更新">
+                        <span>导入更新</span>
+                    </button>
+                    
+                </div>
+                <!--iconsPrefix 'Glyphicon' or 'fa' for FontAwesome 使用"fa"时需引用 FontAwesome，并且配合 icons 属性实现效果-->
+                <table id="table"
+                       data-toolbar="#toolbar"
+                       data-method="post"
+                       data-toolbar-align="left"
+                       data-striped="true"
+                       data-undefined-text="-"
+                       data-content-type="application/x-www-form-urlencoded"
+                       data-show-refresh="true"
+                       data-show-columns="true"
+                       data-pagination="true"
+                       data-query-params-type="false"
+                       data-click-to-select="true"
+                       data-pagination-v-align="bottom"
+                       data-page-size="10"
+                       data-page-list="[10, 25, 50, 100]"
+                       data-show-footer="false"
+                       data-params-type="false"
+                       data-side-pagination="server"
+                        ></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--新增充值记录对话框-->
+<div id="modalMng" class="modal fade modal-scroll" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">商品维护</h4>
+            </div>
+            <div class="modal-body">
+                <form id="mngForm" action="#" class="form-horizontal">
+                    <div class="form-body">
+                        <div class="form-group ">
+                            <label class="control-label col-md-3">商品名称</label>
+
+                            <div class="col-md-6 ">
+                                <input id="goodsName" name="goodsName" type="text" class="form-control" maxlength="20"
+                                       data-rule="required;length[2~20];"
+                                       placeholder="请输入商品名称">
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label class="control-label col-md-3">商品品牌</label>
+
+                            <div class="col-md-6 ">
+                                <input id="goodsBrand" name="goodsBrand" type="text" class="form-control" maxlength="20"
+                                       data-rule="required;length[2~20];"
+                                       placeholder="请输入商品品牌">
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label class="control-label col-md-3">规格(单位)</label>
+
+                            <div class="col-md-6 ">
+                                <input id="unit" name="unit" type="text" class="form-control" maxlength="20"
+                                       data-rule="required;length[1~20];"
+                                       placeholder="请输入商品规格">
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label class="control-label col-md-3">价格(元)</label>
+
+                            <div class="col-md-6 ">
+                                <input id="priceShow" type="text" class="form-control" maxlength="20"
+                                       data-rule="required;range[0.01~99999999];"
+                                       placeholder="请输入商品价格">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">商品分类</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control " name="categoryId" id="categoryId"
+                                        placeholder="请输入商品分类" data-rule="required;">
+                                    <option selected value="">请选择商品分类</option>
+                                    <option value="1">在售</option>
+                                    <option value="0">下架</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label class="control-label col-md-3">商品状态</label>
+
+                            <div class="col-md-6">
+                                <select class="form-control " id="status" name="status" placeholder=""
+                                        data-rule="required;">
+                                    <option selected value="">请选择商品状态</option>
+                                    <option value="1">在售</option>
+                                    <option value="0">下架</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="control-label col-md-3">商品图片</label>
+
+                            <div class="col-md-6">
+                                <input id="pictureName" name="pictureName" class="form-control" type="text"
+                                       readOnly="true" value="请选择商品图片"
+                                       placeholder="请选择商品图片" data-rule="required;"/>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group ">
+                            <label class="control-label col-md-3"></label>
+
+                            <div class="col-md-6">
+                                <!--用来存放文件信息-->
+                                <div id="thelist" class="uploader-list"></div>
+                                <!--<button id="picker" class="btn default btn-file"-->
+                                <!--type="button">-->
+                                <!--<i class="fa fa-file-image-o"/></i> 点击选择图片-->
+                                <!--</button>-->
+                                <div class="col-md-6">
+                                    <button id="picker" class="form-control btn btn-primary "
+                                            type="button">
+                                        <i class="fa fa-arrow-up"/></i> 点击选择图片
+                                    </button>
+                                </div>
+
+                                <label class="control-label col-md-6" id="pictureStatusTxt"
+                                       style="text-align: left"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <label class="control-label col-md-3">商品描述</label>
+
+                            <div class="col-md-6">
+                                <textarea id="goodsDesc" name="goodsDesc" class="form-control" rows="5"
+                                          placeholder="请输入商品描述"
+                                          maxlength="100" data-rule="length[~100]"></textarea>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <input type="hidden" id="goodsId" name="goodsId">
+                    <input type="hidden" id="price" name="price">
+                    <input type="hidden" id="picture" name="picture">
+                    <input type="hidden" id="action" name="action" value="add">
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn default" type="reset" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <button class="btn green" id="btnSave" type="button">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    提示
+                </h4>
+            </div>
+            <div class="modal-body" id="modalConfirmContent">
+                确认要进行新增吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button id="btnConfirm" type="button" class="btn btn-primary">
+                    确认
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal -->
+</div>
+
+<div class="modal fade" id="modalInfo" tabindex="-1" role="dialog" aria-labelledby="myErrorModal">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning mb10" id="modalInfoMsg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="http://cdn.staticfile.org/webuploader/0.1.0/webuploader.flashonly.min.js"></script>
+<script src="/js/xiaoyun/tag/mng.js?v=${version}"></script>
+
+#include("/tpl/footer.html")
